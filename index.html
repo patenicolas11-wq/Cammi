@@ -1,1 +1,528 @@
 
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cita Especial - Temática Matera</title>
+  <style>
+    * { box-sizing: border-box; }
+    
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(180deg, #2d4a27 0%, #3d5e35 40%, #8c6d46 75%, #5c4028 100%);
+      text-align: center;
+      padding: 20px;
+      color: #2c1a0e;
+    }
+
+    .mate-container {
+      margin-bottom: -10px;
+      z-index: 10;
+    }
+    .mate-icon {
+      font-size: 3.2rem;
+      margin: 0 auto;
+      filter: drop-shadow(0 4px 10px rgba(45, 74, 39, 0.6));
+      animation: floatMate 2.5s infinite ease-in-out alternate;
+    }
+
+    @keyframes floatMate {
+      0% { transform: translateY(0px) rotate(-4deg); }
+      100% { transform: translateY(-10px) rotate(4deg); }
+    }
+
+    .mate-card {
+      background: linear-gradient(180deg, rgba(255, 253, 247, 0.96) 0%, rgba(245, 237, 222, 0.96) 100%);
+      border: 3px solid #8c6d46;
+      border-radius: 25px;
+      padding: 25px 20px;
+      box-shadow: 0 12px 35px rgba(45, 30, 15, 0.35), inset 0 0 15px rgba(140, 109, 70, 0.2);
+      max-width: 440px;
+      width: 100%;
+      position: relative;
+      min-height: 320px;
+    }
+
+    .mate-header {
+      background: linear-gradient(90deg, #3d5e35 0%, #2d4a27 100%);
+      color: #ffffff;
+      padding: 8px 18px;
+      border-radius: 50px;
+      font-weight: bold;
+      font-size: 0.9rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      display: inline-block;
+      margin-bottom: 15px;
+      box-shadow: 0 3px 10px rgba(45, 74, 39, 0.4);
+      border: 1px solid #a3c99a;
+    }
+
+    h1 {
+      color: #3b2819;
+      font-size: 1.4rem;
+      margin-bottom: 20px;
+      text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+    }
+
+    .btn-container {
+      position: relative;
+      min-height: 80px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn-container-vertical {
+      flex-direction: column;
+      min-height: 140px;
+      gap: 15px;
+    }
+
+    .btn {
+      padding: 12px 22px;
+      font-size: 1.05rem;
+      font-weight: bold;
+      border: 2px solid #ffffff;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      transition: all 0.2s ease;
+      color: #ffffff;
+      z-index: 2;
+    }
+
+    .btn:hover { transform: scale(1.05); }
+
+    .btn-mate-green {
+      background: linear-gradient(180deg, #486b3e 0%, #2d4a27 100%);
+      box-shadow: 0 4px 12px rgba(45, 74, 39, 0.5);
+    }
+
+    .btn-mate-brown {
+      background: linear-gradient(180deg, #8c6d46 0%, #5c4028 100%);
+      box-shadow: 0 4px 12px rgba(92, 64, 40, 0.4);
+    }
+
+    .btn-mate-dark {
+      background: linear-gradient(180deg, #4a382a 0%, #2c1a0e 100%);
+      box-shadow: 0 4px 12px rgba(44, 26, 14, 0.4);
+    }
+
+    #noBtn {
+      transition: top 0.2s ease, left 0.2s ease;
+    }
+
+    .grid-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      width: 100%;
+    }
+
+    .btn-card {
+      background: #ffffff;
+      border: 2px solid #8c6d46;
+      border-radius: 18px;
+      padding: 8px;
+      cursor: pointer;
+      box-shadow: 0 5px 12px rgba(0,0,0,0.08);
+      transition: transform 0.2s, border-color 0.2s;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .btn-card:hover, .btn-card:active { 
+      transform: scale(1.04);
+      border-color: #2d4a27;
+    }
+
+    .card-banner {
+      width: 100%;
+      height: 95px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.8rem;
+      box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+      pointer-events: none;
+    }
+
+    .btn-card span {
+      display: block;
+      margin-top: 8px;
+      font-weight: bold;
+      color: #3b2819;
+      font-size: 0.95rem;
+      pointer-events: none;
+    }
+
+    .bg-desayuno { background: linear-gradient(135deg, #a3c99a, #5b8e4e); }
+    .bg-merienda { background: linear-gradient(135deg, #d4a373, #a97142); }
+    .bg-cine { background: linear-gradient(135deg, #7f99b2, #4a6fa5); }
+    .bg-cena { background: linear-gradient(135deg, #c86d51, #96432a); }
+    .bg-matecosta { background: linear-gradient(135deg, #8ba870, #2d4a27); }
+    .bg-bowling { background: linear-gradient(135deg, #e0a96d, #8c532b); }
+    
+    .bg-hamburguesa { background: linear-gradient(135deg, #d48c46, #9e5b23); }
+    .bg-pastas { background: linear-gradient(135deg, #8ba870, #4f7336); }
+    .bg-tragos { background: linear-gradient(135deg, #6c8ea4, #3a5a70); }
+    .bg-shopping { background: linear-gradient(135deg, #b8869f, #7a4f66); }
+
+    .bg-terror { background: linear-gradient(135deg, #636b60, #343b32); }
+    .bg-comedia { background: linear-gradient(135deg, #e0b469, #b88635); }
+    .bg-suspenso { background: linear-gradient(135deg, #8a948e, #535c57); }
+    .bg-disney { background: linear-gradient(135deg, #9bb0d6, #5c78a5); }
+
+    .step { display: none; }
+    .step.active { display: block; }
+  </style>
+</head>
+<body>
+
+  <div class="mate-container">
+    <div class="mate-icon">🧉</div>
+  </div>
+
+  <div class="mate-card">
+    
+    <!-- PASO 1: Nombre -->
+    <div id="step1" class="step active">
+      <div class="mate-header">Momento Matero 🌿</div>
+      <h1>¿Cómo te llamas?</h1>
+      <div class="btn-container">
+        <button class="btn btn-mate-green" onclick="nextStep(2)">Cammi 🧉</button>
+        <button class="btn btn-mate-green" onclick="nextStep(2)">Cam ❤️</button>
+      </div>
+    </div>
+
+    <!-- PASO 2: Pregunta Sorpresa -->
+    <div id="step2" class="step">
+      <div class="mate-header">Notificación 💬</div>
+      <h1>¿Crees que te voy a sorprender?</h1>
+      <div class="btn-container">
+        <button class="btn btn-mate-brown" onclick="nextStep(3)">siii</button>
+        <button class="btn btn-mate-brown" onclick="nextStep(3)">No</button>
+      </div>
+    </div>
+
+    <!-- PASO 3: ¿Querés salir conmigo? -->
+    <div id="step3" class="step">
+      <div class="mate-header">Unos Mates & Algo Más 🌹</div>
+      <h1>¿Querés salir conmigo?</h1>
+      <div class="btn-container btn-container-vertical">
+        <button class="btn btn-mate-green" onclick="nextStep(4)">Si/Quiero ver como sigue</button>
+        <button class="btn btn-mate-dark" id="noBtn" onmouseover="moverBoton()" onclick="moverBoton()" ontouchstart="moverBoton()">Más adelante</button>
+      </div>
+    </div>
+
+    <!-- PASO 4: Selección de Día -->
+    <div id="step4" class="step">
+      <div class="mate-header">Calendario 📅</div>
+      <h1>¿Qué día preferís?</h1>
+      <div class="btn-container">
+        <button class="btn btn-mate-brown" onclick="selectOption('dia', 'Lunes'); nextStep(5)">Lunes</button>
+        <button class="btn btn-mate-brown" onclick="selectOption('dia', 'Martes'); nextStep(5)">Martes</button>
+        <button class="btn btn-mate-brown" onclick="selectOption('dia', 'Miércoles'); nextStep(5)">Miércoles</button>
+        <button class="btn btn-mate-brown" onclick="selectOption('dia', 'Jueves'); nextStep(5)">Jueves</button>
+        <button class="btn btn-mate-brown" onclick="selectOption('dia', 'Viernes'); nextStep(5)">Viernes</button>
+        <button class="btn btn-mate-brown" onclick="selectOption('dia', 'Sábado'); nextStep(5)">Sábado</button>
+      </div>
+    </div>
+
+    <!-- PASO 5: Opciones de Plan con Mate en la costa y Bowling -->
+    <div id="step5" class="step">
+      <div class="mate-header">Elige un Plan 🍰</div>
+      <h1>¿Qué te gustaría hacer?</h1>
+      <div class="grid-cards">
+        <div class="btn-card" onclick="selectOption('comida', 'Desayuno'); showHorarios('desayuno'); nextStep(6)">
+          <div class="card-banner bg-desayuno">☕🥐</div>
+          <span>Desayuno</span>
+        </div>
+        <div class="btn-card" onclick="selectOption('comida', 'Merienda'); showHorarios('merienda'); nextStep(6)">
+          <div class="card-banner bg-merienda">🍰☕</div>
+          <span>Merienda</span>
+        </div>
+        <div class="btn-card" onclick="selectOption('comida', 'Cine'); showHorarios('cine'); nextStep(6)">
+          <div class="card-banner bg-cine">🎬🍿</div>
+          <span>Cine</span>
+        </div>
+        <div class="btn-card" onclick="selectOption('comida', 'Cena'); showHorarios('cena'); nextStep(6)">
+          <div class="card-banner bg-cena">🍔🍷</div>
+          <span>Cena</span>
+        </div>
+        <div class="btn-card" onclick="selectOption('comida', 'Mate en la costa'); nextStep('5_mate')">
+          <div class="card-banner bg-matecosta">🧉🌊</div>
+          <span>Mate en la costa</span>
+        </div>
+        <div class="btn-card" onclick="selectOption('comida', 'Bowling'); nextStep('5_bowling')">
+          <div class="card-banner bg-bowling">🎳✨</div>
+          <span>Bowling</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- PASO 5 ESPACIAL: MATE EN LA COSTA -->
+    <div id="step5_mate" class="step">
+      <div class="mate-header">Mates en el Mar 🌊</div>
+      <h1>¿Qué llevo?</h1>
+      <div class="btn-container btn-container-vertical">
+        <button class="btn btn-mate-brown" onclick="selectOption('extraMate', 'Algo dulce'); showHorarios('mate'); nextStep(6)">Algo dulce 🥐</button>
+        <button class="btn btn-mate-brown" onclick="selectOption('extraMate', 'Algo salado'); showHorarios('mate'); nextStep(6)">Algo salado 🥨</button>
+        <button class="btn btn-mate-green" onclick="selectOption('extraMate', 'Las dos'); showHorarios('mate'); nextStep(6)">Las dos 🍩🥨</button>
+      </div>
+    </div>
+
+    <!-- PASO 5 ESPACIAL: BOWLING -->
+    <div id="step5_bowling" class="step">
+      <div class="mate-header">Pista de Bowling 🎳</div>
+      <h1>¿A cuál vamos?</h1>
+      <div class="btn-container btn-container-vertical">
+        <button class="btn btn-mate-brown" onclick="selectOption('lugarBowling', 'El de Paso'); showHorarios('bowling'); nextStep(6)">El de Paso 🎳</button>
+        <button class="btn btn-mate-brown" onclick="selectOption('lugarBowling', 'Club Mar del Plata'); showHorarios('bowling'); nextStep(6)">Club Mar del Plata 🎳</button>
+        <button class="btn btn-mate-green" onclick="selectOption('lugarBowling', 'Te busco y vemos'); showHorarios('bowling'); nextStep(6)">Te busco y vemos 🚗</button>
+      </div>
+    </div>
+
+    <!-- PASO 6: Horarios Dinámicos -->
+    <div id="step6" class="step">
+      <div class="mate-header">Horario ⏰</div>
+      <h1>¿A qué hora?</h1>
+      
+      <div id="horariosDesayuno" class="btn-container" style="display:none;">
+        <button class="btn btn-mate-brown" onclick="selectOption('hora', '9:00 AM'); irAlLugar()">9 AM</button>
+        <button class="btn btn-mate-brown" onclick="selectOption('hora', '10:00 AM'); irAlLugar()">10 AM</button>
+        <button class="btn btn-mate-brown" onclick="selectOption('hora', '11:00 AM'); irAlLugar()">11 AM</button>
+      </div>
+
+      <div id="horariosMerienda" class="btn-container" style="display:none;">
+        <button class="btn btn-mate-brown" onclick="selectOption('hora', '4:00 PM'); irAlLugar()">4 PM</button>
+        <button class="btn btn-mate-brown" onclick="selectOption('hora', '5:00 PM'); irAlLugar()">5 PM</button>
+        <button class="btn btn-mate-brown" onclick="selectOption('hora', '6:00 PM'); irAlLugar()">6 PM</button>
+      </div>
+
+      <div id="horariosMate" class="btn-container" style="display:none;">
+        <button class="btn btn-mate-brown" onclick="selectOption('hora', '3:00 PM'); irAlLugar()">3 PM</button>
+        <button class="btn btn-mate-brown" onclick="selectOption('hora', '4:00 PM'); irAlLugar()">4 PM</button>
+        <button class="btn btn-mate-brown" onclick="selectOption('hora', '5:00 PM'); irAlLugar()">5 PM</button>
+        <button class="btn btn-mate-brown" onclick="selectOption('hora', '6:00 PM'); irAlLugar()">6 PM</button>
+      </div>
+
+      <div id="horariosCine" class="btn-container" style="display:none;">
+        <button class="btn btn-mate-brown" onclick="selectOption('hora', '5:00 PM'); irAlLugar()">5 PM</button>
+        <button class="btn btn-mate-brown" onclick="selectOption('hora', '6:00 PM'); irAlLugar()">6 PM</button>
+        <button class="btn btn-mate-brown" onclick="selectOption('hora', '7:00 PM'); irAlLugar()">7 PM</button>
+        <button class="btn btn-mate-brown" onclick="selectOption('hora', '8:00 PM'); irAlLugar()">8 PM</button>
+        <button class="btn btn-mate-brown" onclick="selectOption('hora', '9:00 PM'); irAlLugar()">9 PM</button>
+        <button class="btn btn-mate-brown" onclick="selectOption('hora', '10:00 PM'); irAlLugar()">10 PM</button>
+      </div>
+
+      <div id="horariosCena" class="btn-container" style="display:none;">
+        <button class="btn btn-mate-brown" onclick="selectOption('hora', '8:00 PM'); irAlLugar()">8 PM</button>
+        <button class="btn btn-mate-brown" onclick="selectOption('hora', '9:00 PM'); irAlLugar()">9 PM</button>
+        <button class="btn btn-mate-brown" onclick="selectOption('hora', '10:00 PM'); irAlLugar()">10 PM</button>
+      </div>
+
+      <div id="horariosBowling" class="btn-container" style="display:none;">
+        <button class="btn btn-mate-brown" onclick="selectOption('hora', '7:00 PM'); irAlLugar()">7 PM</button>
+        <button class="btn btn-mate-brown" onclick="selectOption('hora', '8:00 PM'); irAlLugar()">8 PM</button>
+        <button class="btn btn-mate-brown" onclick="selectOption('hora', '9:00 PM'); irAlLugar()">9 PM</button>
+        <button class="btn btn-mate-brown" onclick="selectOption('hora', '10:00 PM'); irAlLugar()">10 PM</button>
+      </div>
+    </div>
+
+    <!-- PASO 7: Lugares -->
+    <div id="step7" class="step">
+      <div class="mate-header">Lugar 📍</div>
+      
+      <!-- Opciones para Desayuno y Merienda -->
+      <div id="lugaresNormales" class="grid-cards" style="display:none;">
+        <div class="btn-card" onclick="selectOption('lugar', 'Sao'); finalizar()">
+          <div class="card-banner bg-merienda">🥐☕</div>
+          <span>Sao</span>
+        </div>
+        <div class="btn-card" onclick="selectOption('lugar', 'La Fonte'); finalizar()">
+          <div class="card-banner bg-desayuno">🍰☕</div>
+          <span>La Fonte</span>
+        </div>
+      </div>
+
+      <!-- Opciones para Cena -->
+      <div id="lugaresCena" class="grid-cards" style="display:none;">
+        <div class="btn-card" onclick="selectOption('lugar', 'Viejo Dave'); finalizar()">
+          <div class="card-banner bg-hamburguesa">🍔🍺</div>
+          <span>Viejo Dave</span>
+        </div>
+        <div class="btn-card" onclick="selectOption('lugar', 'TMT'); finalizar()">
+          <div class="card-banner bg-hamburguesa">🍔🍟</div>
+          <span>TMT</span>
+        </div>
+        <div class="btn-card" onclick="selectOption('lugar', 'Huija'); finalizar()">
+          <div class="card-banner bg-tragos">🍹🍕</div>
+          <span>Huija</span>
+        </div>
+        <div class="btn-card" onclick="selectOption('lugar', 'Piazza'); finalizar()">
+          <div class="card-banner bg-pastas">🍝🍷</div>
+          <span>Piazza</span>
+        </div>
+      </div>
+
+      <!-- Opciones para Cine -->
+      <div id="lugaresCine" class="grid-cards" style="display:none;">
+        <div class="btn-card" onclick="selectOption('lugar', 'En el Aldrey'); nextStep(8)">
+          <div class="card-banner bg-shopping">🛍️🎬</div>
+          <span>En el Aldrey</span>
+        </div>
+        <div class="btn-card" onclick="selectOption('lugar', 'En Los Gallegos'); nextStep(8)">
+          <div class="card-banner bg-cine">🎬🍿</div>
+          <span>En Los Gallegos</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- PASO 8 (SOLO CINE): Candy Bar -->
+    <div id="step8" class="step">
+      <div class="mate-header">Candy Bar 🍿</div>
+      <h1>¿Qué querés comer?</h1>
+      <div class="btn-container">
+        <button class="btn btn-mate-brown" onclick="selectOption('comidaCine', 'Pochoclos'); nextStep(9)">Pochoclos 🍿</button>
+        <button class="btn btn-mate-brown" onclick="selectOption('comidaCine', 'Nachos'); nextStep(9)">Nachos 🧀</button>
+        <button class="btn btn-mate-brown" onclick="selectOption('comidaCine', 'Luccianos'); nextStep(9)">Luccianos 🍦</button>
+        <button class="btn btn-mate-brown" onclick="selectOption('comidaCine', 'Sorpresa'); nextStep(9)">Sorpresa ✨</button>
+      </div>
+    </div>
+
+    <!-- PASO 9 (SOLO CINE): Selección de Género -->
+    <div id="step9" class="step">
+      <div class="mate-header">Película 🎬</div>
+      <h1>¿Qué género?</h1>
+      <div class="grid-cards">
+        <div class="btn-card" onclick="selectOption('genero', 'Terror'); finalizar()">
+          <div class="card-banner bg-terror">🧟‍♂️🎬</div>
+          <span>Terror</span>
+        </div>
+        <div class="btn-card" onclick="selectOption('genero', 'Comedia'); finalizar()">
+          <div class="card-banner bg-comedia">😂🤡</div>
+          <span>Comedia</span>
+        </div>
+        <div class="btn-card" onclick="selectOption('genero', 'Suspenso'); finalizar()">
+          <div class="card-banner bg-suspenso">🕵️‍♂️🔪</div>
+          <span>Suspenso</span>
+        </div>
+        <div class="btn-card" onclick="selectOption('genero', 'Disney'); finalizar()">
+          <div class="card-banner bg-disney">✨🏰</div>
+          <span>Disney</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- PASO FINAL -->
+    <div id="step10" class="step">
+      <h1 style="margin-top: 15px;">¡Perfecto! Nos vemos ahí</h1>
+      <p id="resumen" style="color: #3b2819; margin-top: 15px; font-size: 1.05rem;"></p>
+      <button class="btn btn-mate-green" style="margin-top: 20px;" onclick="enviarWhatsApp()">Enviar confirmación por WhatsApp 📲</button>
+    </div>
+
+  </div>
+
+  <script>
+    const cita = { dia: '', comida: '', hora: '', lugar: '', comidaCine: '', genero: '', extraMate: '', lugarBowling: '' };
+
+    function moverBoton() {
+      const noBtn = document.getElementById('noBtn');
+      const card = document.querySelector('.mate-card');
+      
+      noBtn.style.position = 'absolute';
+
+      const cardRect = card.getBoundingClientRect();
+      const btnRect = noBtn.getBoundingClientRect();
+
+      const maxX = cardRect.width - btnRect.width - 30;
+      const maxY = cardRect.height - btnRect.height - 30;
+
+      const randomX = Math.max(15, Math.floor(Math.random() * maxX));
+      const randomY = Math.max(15, Math.floor(Math.random() * maxY));
+
+      noBtn.style.left = `${randomX}px`;
+      noBtn.style.top = `${randomY}px`;
+    }
+
+    function nextStep(stepNumber) {
+      document.querySelectorAll('.step').forEach(step => step.classList.remove('active'));
+      document.getElementById(`step${stepNumber}`).classList.add('active');
+    }
+
+    function selectOption(key, value) { cita[key] = value; }
+
+    function showHorarios(tipo) {
+      document.getElementById('horariosDesayuno').style.display = tipo === 'desayuno' ? 'flex' : 'none';
+      document.getElementById('horariosMerienda').style.display = tipo === 'merienda' ? 'flex' : 'none';
+      document.getElementById('horariosMate').style.display = tipo === 'mate' ? 'flex' : 'none';
+      document.getElementById('horariosCine').style.display = tipo === 'cine' ? 'flex' : 'none';
+      document.getElementById('horariosCena').style.display = tipo === 'cena' ? 'flex' : 'none';
+      document.getElementById('horariosBowling').style.display = tipo === 'bowling' ? 'flex' : 'none';
+    }
+
+    function irAlLugar() {
+      if (cita.comida === 'Mate en la costa') {
+        cita.lugar = 'En la costa';
+        finalizar();
+      } else if (cita.comida === 'Bowling') {
+        cita.lugar = cita.lugarBowling;
+        finalizar();
+      } else {
+        document.getElementById('lugaresNormales').style.display = 'none';
+        document.getElementById('lugaresCena').style.display = 'none';
+        document.getElementById('lugaresCine').style.display = 'none';
+
+        if (cita.comida === 'Cine') {
+          document.getElementById('lugaresCine').style.display = 'grid';
+        } else if (cita.comida === 'Cena') {
+          document.getElementById('lugaresCena').style.display = 'grid';
+        } else {
+          document.getElementById('lugaresNormales').style.display = 'grid';
+        }
+        nextStep(7);
+      }
+    }
+
+    function finalizar() {
+      nextStep(10);
+      
+      let detalleExtra = '';
+      if (cita.comida === 'Cine') {
+        detalleExtra = `<br>Género: <b>${cita.genero}</b> | Snack: <b>${cita.comidaCine}</b>`;
+      } else if (cita.comida === 'Mate en la costa') {
+        detalleExtra = `<br>Para llevar: <b>${cita.extraMate}</b>`;
+      }
+
+      document.getElementById('resumen').innerHTML = 
+        `Cita confirmada para el <b>${cita.dia}</b>: Plan de <b>${cita.comida}</b> a las <b>${cita.hora}</b> en <b>${cita.lugar}</b>.${detalleExtra}`;
+    }
+
+    function enviarWhatsApp() {
+      const miNumero = "5492236907429"; 
+      
+      let detalleExtra = '';
+      if (cita.comida === 'Cine') {
+        detalleExtra = ` (Género: ${cita.genero}, Snacks: ${cita.comidaCine})`;
+      } else if (cita.comida === 'Mate en la costa') {
+        detalleExtra = ` (Llevás: ${cita.extraMate})`;
+      }
+
+      const mensaje = `¡Hola! Cita aceptada 🧉 Quedamos el ${cita.dia} para ${cita.comida} a las ${cita.hora} en ${cita.lugar}${detalleExtra} ✨`;
+      window.location.href = `https://wa.me/${miNumero}?text=${encodeURIComponent(mensaje)}`;
+    }
+  </script>
+
+</body>
+</html>
